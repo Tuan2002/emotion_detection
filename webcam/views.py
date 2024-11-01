@@ -27,7 +27,9 @@ def detect_emotion(request):
     if request.method == "POST":
         image_data = request.POST.get("image")
         image_data = base64.b64decode(image_data.split(",")[1])
+        # Convert the image data to a PIL image
         image = Image.open(BytesIO(image_data))
+        # Convert the image to a BGR image
         bgr_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
         # Detect emotions in the image
         emotions = emotion_detector.detect_emotions(bgr_image)
